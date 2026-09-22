@@ -1,18 +1,18 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.gudlab/ads-mcp",
-  "description": "MCP server for Google Ads and Meta Ads via their native APIs, no third-party quota.",
+  "description": "MCP server for Google Ads and Meta Ads. Wraps both APIs directly to manage campaigns.",
   "repository": {
     "url": "https://github.com/gudlab/ads-mcp",
     "source": "github"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@gudlab/ads-mcp",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "transport": { "type": "stdio" },
       "environmentVariables": [
         { "name": "GOOGLE_ADS_CLIENT_ID", "description": "OAuth client ID from Google Cloud Console", "isRequired": true, "isSecret": true },

@@ -1,8 +1,8 @@
 {
   "name": "@gudlab/ads-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
-  "description": "MCP server for Google Ads and Meta Ads, wrapping the Google Ads API and Meta Marketing API directly with no third-party quota.",
+  "description": "MCP server for Google Ads and Meta Ads. Wraps both APIs directly to manage Search campaigns, keywords and ads, with new campaigns always created paused.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {

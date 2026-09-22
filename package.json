@@ -1,0 +1,30 @@
+{
+  "name": "ads-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server for Google Ads and Meta Ads, wrapping the Google Ads API and Meta Marketing API directly with no third-party quota.",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "google:auth": "tsx scripts/google-oauth-setup.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "dotenv": "^16.4.5",
+    "facebook-nodejs-business-sdk": "^21.0.0",
+    "google-ads-api": "^25.1.0",
+    "open": "^10.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

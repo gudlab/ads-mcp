@@ -1,12 +1,29 @@
 {
-  "name": "ads-mcp",
+  "name": "@gudlab/ads-mcp",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "description": "MCP server for Google Ads and Meta Ads, wrapping the Google Ads API and Meta Marketing API directly with no third-party quota.",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "ads-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gudlab/ads-mcp.git"
+  },
+  "homepage": "https://github.com/gudlab/ads-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/gudlab/ads-mcp/issues"
+  },
+  "license": "MIT",
+  "mcpName": "io.github.gudlab/ads-mcp",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && chmod +x dist/index.js",
+    "prepublishOnly": "pnpm build",
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
     "google:auth": "tsx scripts/google-oauth-setup.ts"

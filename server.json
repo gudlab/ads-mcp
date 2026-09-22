@@ -1,0 +1,31 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.gudlab/ads-mcp",
+  "description": "MCP server for Google Ads and Meta Ads via their native APIs, no third-party quota.",
+  "repository": {
+    "url": "https://github.com/gudlab/ads-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@gudlab/ads-mcp",
+      "version": "0.1.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        { "name": "GOOGLE_ADS_CLIENT_ID", "description": "OAuth client ID from Google Cloud Console", "isRequired": true, "isSecret": true },
+        { "name": "GOOGLE_ADS_CLIENT_SECRET", "description": "OAuth client secret from Google Cloud Console", "isRequired": true, "isSecret": true },
+        { "name": "GOOGLE_ADS_DEVELOPER_TOKEN", "description": "Developer token from Google Ads API Center", "isRequired": true, "isSecret": true },
+        { "name": "GOOGLE_ADS_REFRESH_TOKEN", "description": "Refresh token minted via `pnpm google:auth`", "isRequired": true, "isSecret": true },
+        { "name": "GOOGLE_ADS_CUSTOMER_ID", "description": "Default Google Ads account ID, 10 digits, no dashes", "isRequired": true, "isSecret": false },
+        { "name": "GOOGLE_ADS_LOGIN_CUSTOMER_ID", "description": "MCC account ID, only if the customer account is managed under one", "isRequired": false, "isSecret": false },
+        { "name": "META_APP_ID", "description": "Meta App ID from developers.facebook.com", "isRequired": true, "isSecret": false },
+        { "name": "META_APP_SECRET", "description": "Meta App secret", "isRequired": true, "isSecret": true },
+        { "name": "META_ACCESS_TOKEN", "description": "Long-lived System User access token with ads_management scope", "isRequired": true, "isSecret": true },
+        { "name": "META_AD_ACCOUNT_ID", "description": "Default Meta ad account ID, numeric, no act_ prefix", "isRequired": true, "isSecret": false }
+      ]
+    }
+  ]
+}

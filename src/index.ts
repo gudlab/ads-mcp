@@ -8,21 +8,138 @@ import * as metaAds from "./meta-ads/tools.js";
 const server = new McpServer({ name: "ads-mcp", version: "0.1.0" });
 
 // --- Google Ads -------------------------------------------------------
-server.tool("google_ads_list_campaigns", "List campaigns with status and budget", googleAds.listCampaignsSchema, googleAds.listCampaigns);
-server.tool("google_ads_get_campaign_structure", "Get a campaign's ad groups, keywords, ads, and negatives", googleAds.getCampaignStructureSchema, googleAds.getCampaignStructure);
-server.tool("google_ads_create_search_campaign", "Create a new Search campaign with ad groups, keywords and RSAs. Always created PAUSED.", googleAds.createSearchCampaignSchema, googleAds.createSearchCampaign);
-server.tool("google_ads_add_keywords", "Add keywords to an existing ad group", googleAds.addKeywordsSchema, googleAds.addKeywords);
-server.tool("google_ads_set_keyword_status", "Pause or enable keywords (reversible)", googleAds.setKeywordStatusSchema, googleAds.setKeywordStatus);
-server.tool("google_ads_remove_keywords", "Permanently remove keywords. Requires confirm_delete: true.", googleAds.removeKeywordsSchema, googleAds.removeKeywords);
-server.tool("google_ads_update_bid_strategy", "Change a campaign's bidding strategy", googleAds.updateBidStrategySchema, googleAds.updateBidStrategy);
-server.tool("google_ads_add_negative_keywords", "Add campaign-level negative keywords", googleAds.addNegativeKeywordsSchema, googleAds.addNegativeKeywords);
-server.tool("google_ads_set_campaign_status", "Enable or pause a campaign. The only tool that can turn spend on.", googleAds.setCampaignStatusSchema, googleAds.setCampaignStatus);
+server.registerTool(
+  "google_ads_list_campaigns",
+  {
+    title: "List Google Ads campaigns",
+    description: "List campaigns with status and budget",
+    inputSchema: googleAds.listCampaignsSchema,
+    annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
+  },
+  googleAds.listCampaigns,
+);
+server.registerTool(
+  "google_ads_get_campaign_structure",
+  {
+    title: "Get Google Ads campaign structure",
+    description: "Get a campaign's ad groups, keywords, ads, and negatives",
+    inputSchema: googleAds.getCampaignStructureSchema,
+    annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
+  },
+  googleAds.getCampaignStructure,
+);
+server.registerTool(
+  "google_ads_create_search_campaign",
+  {
+    title: "Create Google Ads Search campaign (paused)",
+    description: "Create a new Search campaign with ad groups, keywords and RSAs. Always created PAUSED.",
+    inputSchema: googleAds.createSearchCampaignSchema,
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+  },
+  googleAds.createSearchCampaign,
+);
+server.registerTool(
+  "google_ads_add_keywords",
+  {
+    title: "Add keywords to a Google Ads ad group",
+    description: "Add keywords to an existing ad group",
+    inputSchema: googleAds.addKeywordsSchema,
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+  },
+  googleAds.addKeywords,
+);
+server.registerTool(
+  "google_ads_set_keyword_status",
+  {
+    title: "Pause or enable Google Ads keywords",
+    description: "Pause or enable keywords (reversible)",
+    inputSchema: googleAds.setKeywordStatusSchema,
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  },
+  googleAds.setKeywordStatus,
+);
+server.registerTool(
+  "google_ads_remove_keywords",
+  {
+    title: "Permanently remove Google Ads keywords",
+    description: "Permanently remove keywords. Requires confirm_delete: true.",
+    inputSchema: googleAds.removeKeywordsSchema,
+    annotations: { readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  },
+  googleAds.removeKeywords,
+);
+server.registerTool(
+  "google_ads_update_bid_strategy",
+  {
+    title: "Update Google Ads bid strategy",
+    description: "Change a campaign's bidding strategy",
+    inputSchema: googleAds.updateBidStrategySchema,
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  },
+  googleAds.updateBidStrategy,
+);
+server.registerTool(
+  "google_ads_add_negative_keywords",
+  {
+    title: "Add Google Ads negative keywords",
+    description: "Add campaign-level negative keywords",
+    inputSchema: googleAds.addNegativeKeywordsSchema,
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+  },
+  googleAds.addNegativeKeywords,
+);
+server.registerTool(
+  "google_ads_set_campaign_status",
+  {
+    title: "Enable or pause a Google Ads campaign",
+    description: "Enable or pause a campaign. The only tool that can turn spend on.",
+    inputSchema: googleAds.setCampaignStatusSchema,
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  },
+  googleAds.setCampaignStatus,
+);
 
 // --- Meta Ads -----------------------------------------------------------
-server.tool("meta_ads_list_campaigns", "List Meta campaigns with status and budget", metaAds.listCampaignsSchema, metaAds.listCampaigns);
-server.tool("meta_ads_get_ad_status", "Get an ad's review status and rejection reason if any", metaAds.getAdStatusSchema, metaAds.getAdStatus);
-server.tool("meta_ads_list_ads_by_status", "List ads in an account filtered by effective_status (e.g. DISAPPROVED)", metaAds.listAdsByStatusSchema, metaAds.listAdsByStatus);
-server.tool("meta_ads_set_campaign_status", "Enable or pause a Meta campaign. The only tool that can turn spend on.", metaAds.setCampaignStatusSchema, metaAds.setCampaignStatus);
+server.registerTool(
+  "meta_ads_list_campaigns",
+  {
+    title: "List Meta Ads campaigns",
+    description: "List Meta campaigns with status and budget",
+    inputSchema: metaAds.listCampaignsSchema,
+    annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
+  },
+  metaAds.listCampaigns,
+);
+server.registerTool(
+  "meta_ads_get_ad_status",
+  {
+    title: "Get a Meta ad's review status",
+    description: "Get an ad's review status and rejection reason if any",
+    inputSchema: metaAds.getAdStatusSchema,
+    annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
+  },
+  metaAds.getAdStatus,
+);
+server.registerTool(
+  "meta_ads_list_ads_by_status",
+  {
+    title: "List Meta ads by review status",
+    description: "List ads in an account filtered by effective_status (e.g. DISAPPROVED)",
+    inputSchema: metaAds.listAdsByStatusSchema,
+    annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
+  },
+  metaAds.listAdsByStatus,
+);
+server.registerTool(
+  "meta_ads_set_campaign_status",
+  {
+    title: "Enable or pause a Meta Ads campaign",
+    description: "Enable or pause a Meta campaign. The only tool that can turn spend on.",
+    inputSchema: metaAds.setCampaignStatusSchema,
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  },
+  metaAds.setCampaignStatus,
+);
 
 async function main() {
   const transport = new StdioServerTransport();

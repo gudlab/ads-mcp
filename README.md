@@ -31,7 +31,31 @@ pnpm dev        # runs the MCP server over stdio via tsx, for local testing
 pnpm build && pnpm start   # compiled version
 ```
 
-Point an MCP-compatible client (e.g. Claude Code's `.mcp.json`) at `node /path/to/ads-mcp/dist/index.js` once built, or at `pnpm dev` in this directory for local iteration.
+Once published to npm, it also runs via `npx @gudlab/ads-mcp`, no local clone needed. Point an MCP-compatible client at it, e.g. in Claude Code's `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "ads-mcp": {
+      "command": "npx",
+      "args": ["-y", "@gudlab/ads-mcp"],
+      "env": {
+        "GOOGLE_ADS_CLIENT_ID": "...",
+        "GOOGLE_ADS_CLIENT_SECRET": "...",
+        "GOOGLE_ADS_DEVELOPER_TOKEN": "...",
+        "GOOGLE_ADS_REFRESH_TOKEN": "...",
+        "GOOGLE_ADS_CUSTOMER_ID": "...",
+        "META_APP_ID": "...",
+        "META_APP_SECRET": "...",
+        "META_ACCESS_TOKEN": "...",
+        "META_AD_ACCOUNT_ID": "..."
+      }
+    }
+  }
+}
+```
+
+Before that's published, point it at the local build instead: `command: "node"`, `args: ["/path/to/ads-mcp/dist/index.js"]`, or `command: "pnpm"`, `args: ["dev"]` with `cwd` set to this directory for local iteration.
 
 ## First real run: verify before trusting it
 
@@ -46,6 +70,10 @@ The Google Ads and Meta Marketing APIs both shift field/enum names across versio
 **Google Ads** (`src/google-ads/tools.ts`): `list_campaigns`, `get_campaign_structure`, `create_search_campaign` (always PAUSED), `add_keywords`, `set_keyword_status` (pause/enable, reversible), `remove_keywords` (permanent, requires `confirm_delete: true`), `update_bid_strategy`, `add_negative_keywords`, `set_campaign_status` (the only enable/spend switch).
 
 **Meta Ads** (`src/meta-ads/tools.ts`): `list_campaigns`, `get_ad_status` (pulls `ad_review_feedback`/`issues_info`, the actual rejection reason for a disapproved ad), `list_ads_by_status` (e.g. pull every `DISAPPROVED` ad in one call), `set_campaign_status` (the only enable/spend switch).
+
+## Privacy and data handling
+
+All credentials stay in your own `.env` (never committed, see `.gitignore`) or your MCP client's own env config, and are used only to call Google's and Meta's APIs directly from your machine. This server sends nothing to any third party: no telemetry, no analytics, no relay service. Every request goes straight from your process to `googleads.googleapis.com` or `graph.facebook.com`, using your own developer token and access token.
 
 ## License
 
